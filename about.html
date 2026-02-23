@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="About GreenBowl Cloud Kitchen – Our story, mission, kitchen hygiene practices, and quality promise. We craft salads with passion and love." />
+    <title>About Us – GreenBowl Cloud Kitchen</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥗</text></svg>" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        /* ABOUT PAGE SPECIFIC */
+        .about-hero {
+            background: linear-gradient(160deg, var(--dark-green) 0%, #0d2b0d 60%, #1a3d1a 100%);
+            padding: 12rem 2rem 6rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+            animation: fadeInDown 0.8s ease both;
+        }
+
+        .about-hero-sub {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 0.8s 0.2s ease both;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center top, rgba(85, 107, 47, 0.3) 0%, transparent 70%);
+        }
+
+        .about-hero-float {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.12;
+            pointer-events: none;
+        }
+
+        /* STORY SECTION */
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            padding: 6rem 2rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .story-img-wrap {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .story-img {
+            width: 100%;
+            height: 520px;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
+            transition: transform 0.6s ease;
+        }
+
+        .story-img-wrap:hover .story-img {
+            transform: scale(1.04);
+        }
+
+        .story-img-badge {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            background: white;
+            border-radius: var(--radius);
+            padding: 1rem 1.5rem;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .story-img-badge-icon {
+            font-size: 1.8rem;
+        }
+
+        .story-img-badge-text {
+            font-weight: 700;
+            color: var(--dark-green);
+            font-size: 0.9rem;
+        }
+
+        .story-img-badge-sub {
+            color: #999;
+            font-size: 0.75rem;
+        }
+
+        .story-highlight {
+            color: var(--olive);
+            font-weight: 700;
+        }
+
+        .story-text p {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1.2rem;
+        }
+
+        /* MISSION SECTION */
+        .mission-section {
+            background: var(--soft-gray);
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-section::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: rgba(85, 107, 47, 0.06);
+            top: -100px;
+            right: -100px;
+        }
+
+        .mission-section::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(143, 188, 143, 0.08);
+            bottom: -60px;
+            left: -60px;
+        }
+
+        .mission-grid {
+            max-width: 1280px;
+            margin: 0 auto 4rem;
+        }
+
+        .mission-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .mission-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 2.5rem 2rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--olive), var(--mild-green));
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .mission-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .mission-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .mission-card-num {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: rgba(85, 107, 47, 0.12);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .mission-card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark-green);
+            margin-bottom: 0.8rem;
+        }
+
+        .mission-card-text {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* HYGIENE SECTION */
+        .hygiene-section {
+            padding: 6rem 2rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .hygiene-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .hygiene-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .hygiene-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: white;
+            border: 1px solid rgba(85, 107, 47, 0.1);
+            border-radius: var(--radius);
+            padding: 1.2rem 1.5rem;
+            transition: var(--transition);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .hygiene-item:hover {
+            border-color: var(--olive);
+            box-shadow: 0 6px 25px var(--olive-glow);
+            transform: translateX(5px);
+        }
+
+        .hygiene-item-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .hygiene-item-title {
+            font-weight: 700;
+            color: var(--dark-green);
+            margin-bottom: 0.2rem;
+            font-size: 0.95rem;
+        }
+
+        .hygiene-item-text {
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        /* QUALITY SECTION */
+        .quality-section {
+            background: linear-gradient(135deg, var(--dark-green), #0d2b0d);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quality-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 50%, rgba(85, 107, 47, 0.25) 0%, transparent 60%);
+        }
+
+        .quality-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .quality-section .section-title {
+            color: white;
+        }
+
+        .quality-section .text-olive {
+            color: var(--mild-green);
+        }
+
+        .quality-section .section-sub {
+            color: rgba(255, 255, 255, 0.7);
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .quality-badges {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .quality-badge {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 2rem;
+            color: white;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            min-width: 160px;
+        }
+
+        .quality-badge:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-6px);
+            border-color: var(--mild-green);
+        }
+
+        .quality-badge-icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .quality-badge-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        @media (max-width: 768px) {
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .mission-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .hygiene-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LOADER -->
+    <div id="loader">
+        <div class="loader-inner">
+            <span class="loader-bowl">🥗</span>
+            <div class="loader-text">GreenBowl</div>
+            <div class="loader-bar">
+                <div class="loader-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FLOATING WHATSAPP -->
+    <a href="https://wa.me/918300293097?text=Hello%20GreenBowl!%20I%20would%20like%20to%20place%20an%20order."
+        class="whatsapp-float" target="_blank">💬</a>
+    <div class="delivery-badge">⚡ 30 Min Delivery</div>
+
+    <!-- MOBILE NAV -->
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="index.html" onclick="closeMobileNav()">Home</a>
+        <a href="about.html" onclick="closeMobileNav()">About</a>
+        <a href="menu.html" onclick="closeMobileNav()">Menu</a>
+        <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+        <a href="menu.html" class="btn btn-primary" onclick="closeMobileNav()">Order Now</a>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="header header-dark" id="header">
+        <nav class="nav">
+            <a href="index.html" class="nav-logo">
+                <span class="nav-logo-icon">🥗</span>GreenBowl
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="menu.html" class="nav-cta">Order Now</a></li>
+            </ul>
+            <button class="cart-nav-btn" onclick="openCartDrawer()" aria-label="Open Cart" title="View Cart">
+                🛒<span class="cart-nav-badge" id="cartNavBadge">0</span>
+            </button>
+            <div class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+                <span></span><span></span><span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ABOUT HERO -->
+    <section class="about-hero">
+        <div class="about-hero-float" style="top:15%;left:8%">🌿</div>
+        <div class="about-hero-float" style="top:25%;right:10%">🥑</div>
+        <div class="about-hero-float" style="bottom:20%;left:15%">🍅</div>
+        <div class="about-hero-float" style="bottom:25%;right:8%">🥦</div>
+        <div class="section-label"
+            style="color:var(--mild-green);justify-content:center;margin-bottom:1rem;animation:fadeInDown 0.6s ease both;">
+            Our Story</div>
+        <h1 class="about-hero-title">We're on a Mission to<br /><span style="color:var(--mild-green);">Reimagine</span>
+            Healthy Eating</h1>
+        <p class="about-hero-sub">Born from a love of food and a passion for health, GreenBowl is redefining the cloud
+            kitchen experience — one bowl at a time.</p>
+    </section>
+
+    <!-- OUR STORY -->
+    <div class="story-grid">
+        <div class="story-img-wrap reveal-left">
+            <img class="story-img" src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=700&q=85&fit=crop"
+                alt="Our Kitchen Story" loading="lazy" />
+            <div class="story-img-badge">
+                <div class="story-img-badge-icon">🏆</div>
+                <div>
+                    <div class="story-img-badge-text">Award Winning</div>
+                    <div class="story-img-badge-sub">Best Cloud Kitchen 2023</div>
+                </div>
+            </div>
+        </div>
+        <div class="story-text reveal-right">
+            <div class="section-label">Our Story</div>
+            <h2 class="section-title">From a Small Kitchen to <span class="text-olive">2,500+</span> Happy Customers
+            </h2>
+            <p>GreenBowl started in 2022 when our founder, <span class="story-highlight">Chef Aryan Kapoor</span>,
+                returned from culinary training in Italy with one powerful idea: <em>healthy food should never be boring
+                    or inaccessible.</em></p>
+            <p>Operating from a cozy cloud kitchen in <span class="story-highlight">Koramangala, Bengaluru</span>, we
+                began with just 5 salad recipes and a WhatsApp number. Within 6 months, we were serving over <span
+                    class="story-highlight">300 orders daily</span> and had a cult following among health-conscious
+                foodies.</p>
+            <p>Today, GreenBowl is Bengaluru's most loved salad cloud kitchen — offering <span
+                    class="story-highlight">25+ signature recipes</span>, daily-sourced local produce, and a commitment
+                to quality that never wavers. Every bowl is a labor of love.</p>
+            <div style="display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap;">
+                <a href="menu.html" class="btn btn-primary">🥣 Explore Menu</a>
+                <a href="contact.html" class="btn btn-outline">📞 Get in Touch</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MISSION SECTION -->
+    <section class="mission-section">
+        <div class="mission-grid">
+            <div class="text-center reveal">
+                <div class="section-label">Our Mission</div>
+                <h2 class="section-title">What Drives <span class="text-olive">Everything We Do</span></h2>
+                <p class="section-sub" style="margin:0 auto 0;">We don't just make salads. We craft experiences that
+                    fuel your well-being, support local farmers, and prove that healthy can be absolutely delicious.</p>
+            </div>
+            <div class="mission-cards">
+                <div class="mission-card reveal reveal-delay-1">
+                    <div class="mission-card-num">01</div>
+                    <div class="mission-card-title">🌱 Nourish Bodies</div>
+                    <p class="mission-card-text">Every bowl is nutritionist-reviewed to ensure optimal macros, vitamins,
+                        and minerals. We make healthy eating effortless.</p>
+                </div>
+                <div class="mission-card reveal reveal-delay-2">
+                    <div class="mission-card-num">02</div>
+                    <div class="mission-card-title">🤝 Support Local Farmers</div>
+                    <p class="mission-card-text">We directly source from 12+ local farm partners within 50km of our
+                        kitchen, ensuring freshness and fair pay for farmers.</p>
+                </div>
+                <div class="mission-card reveal reveal-delay-3">
+                    <div class="mission-card-num">03</div>
+                    <div class="mission-card-title">♻️ Zero-Waste Kitchen</div>
+                    <p class="mission-card-text">Our packaging is 100% biodegradable. We compost all kitchen waste and
+                        aim to be a carbon-neutral operation by 2025.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COUNTERS (inline on about page) -->
+    <div class="counter-section">
+        <div class="counters-grid">
+            <div class="counter-item">
+                <div class="counter-num"><span class="counter-val" data-target="2500">0</span><span
+                        class="counter-suffix">+</span></div>
+                <div class="counter-label">Happy Customers</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-num"><span class="counter-val" data-target="12000">0</span><span
+                        class="counter-suffix">+</span></div>
+                <div class="counter-label">Orders Served</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-num"><span class="counter-val" data-target="12">0</span><span
+                        class="counter-suffix">+</span></div>
+                <div class="counter-label">Farm Partners</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-num"><span class="counter-val" data-target="3">0</span><span
+                        class="counter-suffix">yrs</span></div>
+                <div class="counter-label">Of Deliciousness</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KITCHEN HYGIENE -->
+    <section class="hygiene-section">
+        <div class="text-center reveal">
+            <div class="section-label">Hygiene First</div>
+            <h2 class="section-title">Our <span class="text-olive">Kitchen Standards</span></h2>
+            <p class="section-sub" style="margin:0 auto 0;">We maintain FSSAI-certified kitchen standards because your
+                health and trust is our biggest priority.</p>
+        </div>
+        <div class="hygiene-grid">
+            <div class="hygiene-list">
+                <div class="hygiene-item reveal reveal-delay-1">
+                    <div class="hygiene-item-icon">🧤</div>
+                    <div>
+                        <div class="hygiene-item-title">Food-Grade Gloved Preparation</div>
+                        <div class="hygiene-item-text">All food handling done with certified food-grade gloves changed
+                            every 30 minutes during service.</div>
+                    </div>
+                </div>
+                <div class="hygiene-item reveal reveal-delay-2">
+                    <div class="hygiene-item-icon">🌡️</div>
+                    <div>
+                        <div class="hygiene-item-title">Temperature-Controlled Storage</div>
+                        <div class="hygiene-item-text">Produce stored at optimal temperatures with HACCP-compliant cold
+                            chain from farm to your bowl.</div>
+                    </div>
+                </div>
+                <div class="hygiene-item reveal reveal-delay-3">
+                    <div class="hygiene-item-icon">🧹</div>
+                    <div>
+                        <div class="hygiene-item-title">Sanitized Every 2 Hours</div>
+                        <div class="hygiene-item-text">All prep surfaces, utensils, and equipment sanitized with
+                            food-safe solutions on a strict 2-hour schedule.</div>
+                    </div>
+                </div>
+                <div class="hygiene-item reveal reveal-delay-4">
+                    <div class="hygiene-item-icon">✅</div>
+                    <div>
+                        <div class="hygiene-item-title">FSSAI Certified Kitchen</div>
+                        <div class="hygiene-item-text">Our kitchen holds a valid FSSAI license with surprise audits
+                            passed consistently over 3 years.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="reveal-right">
+                <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=600&q=85&fit=crop"
+                    alt="Kitchen Hygiene" loading="lazy"
+                    style="width:100%;height:480px;object-fit:cover;border-radius:var(--radius-lg);box-shadow:var(--card-shadow-hover);" />
+            </div>
+        </div>
+    </section>
+
+    <!-- QUALITY PROMISE -->
+    <section class="quality-section">
+        <div class="quality-inner">
+            <div class="section-label"
+                style="color:var(--mild-green);margin:0 auto 1rem;display:flex;justify-content:center;">Our Promise
+            </div>
+            <h2 class="section-title">The <span class="text-olive">GreenBowl</span> Quality Promise</h2>
+            <p class="section-sub">We stand behind every single bowl we make. No compromise on quality, no shortcuts on
+                freshness.</p>
+            <div class="quality-badges">
+                <div class="quality-badge reveal reveal-delay-1">
+                    <div class="quality-badge-icon">🌱</div>
+                    <div class="quality-badge-text">Farm Fresh Daily</div>
+                </div>
+                <div class="quality-badge reveal reveal-delay-2">
+                    <div class="quality-badge-icon">🚫</div>
+                    <div class="quality-badge-text">Zero Preservatives</div>
+                </div>
+                <div class="quality-badge reveal reveal-delay-3">
+                    <div class="quality-badge-icon">🏷️</div>
+                    <div class="quality-badge-text">Transparent Pricing</div>
+                </div>
+                <div class="quality-badge reveal reveal-delay-4">
+                    <div class="quality-badge-icon">♻️</div>
+                    <div class="quality-badge-text">Eco Packaging</div>
+                </div>
+                <div class="quality-badge reveal reveal-delay-1">
+                    <div class="quality-badge-icon">⭐</div>
+                    <div class="quality-badge-text">4.9 Star Rated</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">🥗 GreenBowl</div>
+                <p class="footer-tagline">Fresh, healthy, and handcrafted salads delivered from our cloud kitchen to
+                    your door. Nourish your body, one bowl at a time.</p>
+                <div class="footer-social">
+                    <div class="footer-social-btn">📸</div>
+                    <div class="footer-social-btn">👍</div>
+                    <div class="footer-social-btn">💬</div>
+                    <div class="footer-social-btn">▶️</div>
+                </div>
+            </div>
+            <div>
+                <div class="footer-col-title">Quick Links</div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="menu.html">Our Menu</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div>
+                <div class="footer-col-title">Menu</div>
+                <div class="footer-links">
+                    <a href="menu.html#classic">Classic Salads</a>
+                    <a href="menu.html#premium">Premium Bowls</a>
+                    <a href="menu.html#fruit">Fruit Salads</a>
+                    <a href="menu.html#addons">Add-ons</a>
+                </div>
+            </div>
+            <div>
+                <div class="footer-col-title">Contact Us</div>
+                <div class="footer-contact-item"><span class="footer-contact-icon">📍</span><span>123 Green Street,
+                        Koramangala 5th Block, Bengaluru - 560095</span></div>
+                <div class="footer-contact-item"><span class="footer-contact-icon">📞</span><span>+91 8300293097</span>
+                </div>
+                <div class="footer-contact-item"><span
+                        class="footer-contact-icon">✉️</span><span>hello@greenbowl.in</span></div>
+                <div class="footer-contact-item"><span class="footer-contact-icon">🕐</span><span>Mon–Sun: 9:00 AM –
+                        9:00 PM</span></div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2024 GreenBowl Cloud Kitchen. All rights reserved.</div>
+            <div>Made with 💚 for healthy living</div>
+        </div>
+    </footer>
+
+    <!-- CART DRAWER -->
+    <div class="cart-drawer-overlay" id="cartDrawerOverlay"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-drawer-header">
+            <div class="cart-drawer-title">
+                🛒 Your Cart
+                <span class="cart-drawer-count" id="cartDrawerCount">0</span>
+            </div>
+            <button class="cart-drawer-close" onclick="closeCartDrawer()" aria-label="Close cart">✕</button>
+        </div>
+        <div class="cart-drawer-items" id="cartDrawerItems">
+            <div class="cart-empty">
+                <div class="cart-empty-icon">🛒</div>
+                <div class="cart-empty-text">Your cart is empty</div>
+                <div class="cart-empty-sub">Browse our <a href="menu.html" style="color:var(--olive);">menu</a> to add
+                    items!</div>
+            </div>
+        </div>
+        <div class="cart-drawer-footer" id="cartDrawerFooter" style="display:none;">
+            <div class="cart-summary" id="cartSummary"></div>
+            <button class="cart-wa-btn" id="cartSendWa" disabled>
+                💬 Send Order on WhatsApp
+            </button>
+            <button class="cart-clear-btn" id="cartClearBtn">🗑 Clear Cart</button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

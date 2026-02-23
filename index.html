@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="GreenBowl Cloud Kitchen – Fresh, healthy, custom handcrafted salads delivered daily. Order farm-fresh salad bowls made with premium ingredients." />
+  <title>GreenBowl – Fresh Salads, Delivered Daily</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥗</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="loader-inner">
+      <span class="loader-bowl">🥗</span>
+      <div class="loader-text">GreenBowl</div>
+      <div class="loader-bar">
+        <div class="loader-bar-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING WHATSAPP -->
+  <a href="https://wa.me/918300293097?text=Hello%20GreenBowl!%20I%20would%20like%20to%20place%20an%20order."
+    class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">💬</a>
+
+  <!-- DELIVERY BADGE -->
+  <div class="delivery-badge">⚡ 30 Min Delivery</div>
+
+  <!-- MOBILE NAV -->
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="index.html" onclick="closeMobileNav()">Home</a>
+    <a href="about.html" onclick="closeMobileNav()">About</a>
+    <a href="menu.html" onclick="closeMobileNav()">Menu</a>
+    <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+    <a href="menu.html" class="btn btn-primary" onclick="closeMobileNav()">Order Now</a>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="header header-dark" id="header">
+    <nav class="nav">
+      <a href="index.html" class="nav-logo">
+        <span class="nav-logo-icon">🥗</span>GreenBowl
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="menu.html" class="nav-cta">Order Now</a></li>
+      </ul>
+      <button class="cart-nav-btn" onclick="openCartDrawer()" aria-label="Open Cart" title="View Cart">
+        🛒<span class="cart-nav-badge" id="cartNavBadge">0</span>
+      </button>
+      <div class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+        <span></span><span></span><span></span>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-shapes">
+      <div class="hero-shape hero-shape-1"></div>
+      <div class="hero-shape hero-shape-2"></div>
+      <div class="hero-shape hero-shape-3"></div>
+    </div>
+
+    <div class="hero-container">
+      <!-- Content -->
+      <div class="hero-content">
+        <div class="hero-badge">🌿 Cloud Kitchen • Since 2022</div>
+        <h1 class="hero-title">
+          Fresh <span class="dot">•</span> Healthy<br />
+          <span>Delivered Daily</span>
+        </h1>
+        <p class="hero-sub">
+          Custom handcrafted salads made with farm fresh ingredients.<br />
+          Nourish your body, delight your taste buds.
+        </p>
+        <div class="hero-actions">
+          <a href="menu.html" class="btn btn-primary">
+            🥣 Order Now
+          </a>
+          <a href="https://wa.me/918300293097?text=Hello%20GreenBowl!%20I%20would%20like%20to%20place%20an%20order."
+            class="btn btn-whatsapp" target="_blank">
+            💬 Chat on WhatsApp
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num" data-counter="2500">0</div>
+            <div class="hero-stat-label">Happy Customers</div>
+          </div>
+          <div>
+            <div class="hero-stat-num" data-counter="12000">0</div>
+            <div class="hero-stat-label">Orders Served</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">100%</div>
+            <div class="hero-stat-label">Natural Ingredients</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual -->
+      <div class="hero-visual">
+        <span class="float-ingredient fi-1">🥑</span>
+        <span class="float-ingredient fi-2">🍅</span>
+        <span class="float-ingredient fi-3">🥦</span>
+        <span class="float-ingredient fi-4">🫒</span>
+        <span class="float-ingredient fi-5">🌿</span>
+        <span class="float-ingredient fi-6">🥕</span>
+        <div class="hero-bowl-wrap">
+          <div class="hero-bowl-ring"></div>
+          <div class="hero-bowl-ring-2"></div>
+          <img class="hero-bowl-img"
+            src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=85&fit=crop"
+            alt="Fresh gourmet salad bowl" loading="eager" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div
+      style="position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);text-align:center;color:rgba(255,255,255,0.5);animation:bounce 2s infinite;">
+      <div style="font-size:0.78rem;letter-spacing:0.1em;margin-bottom:0.4rem;text-transform:uppercase;">Scroll</div>
+      <div style="font-size:1.2rem;">↓</div>
+    </div>
+  </section>
+
+  <!-- MARQUEE STRIP -->
+  <div class="marquee-strip">
+    <div class="marquee-track" id="marqueeTrack">
+      <span>🥗 Fresh Ingredients</span>
+      <span>🚀 Fast Delivery</span>
+      <span>🌿 100% Natural</span>
+      <span>🥣 Custom Bowls</span>
+      <span>❤️ Chef's Special</span>
+      <span>⭐ Premium Quality</span>
+      <span>🥗 Fresh Ingredients</span>
+      <span>🚀 Fast Delivery</span>
+      <span>🌿 100% Natural</span>
+      <span>🥣 Custom Bowls</span>
+      <span>❤️ Chef's Special</span>
+      <span>⭐ Premium Quality</span>
+    </div>
+  </div>
+
+  <!-- WHY CHOOSE US -->
+  <section style="background: var(--soft-gray); padding: 6rem 0;">
+    <div class="section">
+      <div class="text-center reveal">
+        <div class="section-label">Why Us</div>
+        <h2 class="section-title">Why Choose <span class="text-olive">GreenBowl?</span></h2>
+        <p class="section-sub">We believe great food is the foundation of a great life. That's why we obsess over every
+          ingredient.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card reveal reveal-delay-1">
+          <div class="feature-card-icon">🌱</div>
+          <div class="feature-card-title">Fresh Ingredients</div>
+          <p class="feature-card-text">Sourced directly from local farms every morning. No preservatives, no shortcuts.
+            Just pure, vibrant freshness.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-2">
+          <div class="feature-card-icon">🥣</div>
+          <div class="feature-card-title">Custom Bowls</div>
+          <p class="feature-card-text">Build your dream salad. Choose your base, proteins, toppings and dressings for a
+            bowl that's uniquely yours.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-3">
+          <div class="feature-card-icon">⚡</div>
+          <div class="feature-card-title">Fast Delivery</div>
+          <p class="feature-card-text">Your fresh salad arrives at your door within 30 minutes. Hot kitchens, cold
+            salads — always on time.</p>
+        </div>
+        <div class="feature-card reveal reveal-delay-4">
+          <div class="feature-card-icon">✅</div>
+          <div class="feature-card-title">100% Natural</div>
+          <p class="feature-card-text">Zero artificial colors, flavors, or preservatives. Everything is as nature
+            intended — clean and wholesome.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POPULAR SALADS -->
+  <section class="section">
+    <div class="text-center reveal">
+      <div class="section-label">Popular</div>
+      <h2 class="section-title">Our <span class="text-olive">Bestsellers</span></h2>
+      <p class="section-sub">Handcrafted by our chefs and loved by thousands of health-conscious foodies across the
+        city.</p>
+    </div>
+    <div class="salads-grid">
+      <!-- Card 1 -->
+      <div class="salad-card reveal reveal-delay-1">
+        <div class="salad-card-img-wrap">
+          <img class="salad-card-img"
+            src="https://images.unsplash.com/photo-1551248429-40975aa4de74?w=500&q=80&fit=crop" alt="Mediterranean Bowl"
+            loading="lazy" />
+          <div class="salad-card-badge">🔥 Bestseller</div>
+        </div>
+        <div class="salad-card-body">
+          <div class="salad-card-name">Mediterranean Bowl</div>
+          <p class="salad-card-desc">Quinoa, roasted veggies, hummus, feta, olives, cherry tomatoes with lemon-herb
+            drizzle.</p>
+          <div class="salad-card-footer">
+            <div class="salad-card-price">₹249</div>
+          </div>
+          <button class="btn-add-cart" data-item-name="Mediterranean Bowl"
+            onclick="addToCart('Mediterranean Bowl', 249, 1, '🥗')">🛒 Add to Cart</button>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="salad-card reveal reveal-delay-2">
+        <div class="salad-card-img-wrap">
+          <img class="salad-card-img"
+            src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=500&q=80&fit=crop" alt="Caesar Royale"
+            loading="lazy" />
+          <div class="salad-card-badge">⭐ Chef's Love</div>
+        </div>
+        <div class="salad-card-body">
+          <div class="salad-card-name">Caesar Royale</div>
+          <p class="salad-card-desc">Crispy romaine, parmesan ribbons, house-made croutons, anchovy-free Caesar
+            dressing.</p>
+          <div class="salad-card-footer">
+            <div class="salad-card-price">₹199</div>
+          </div>
+          <button class="btn-add-cart" data-item-name="Caesar Royale"
+            onclick="addToCart('Caesar Royale', 199, 1, '🥬')">� Add to Cart</button>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="salad-card reveal reveal-delay-3">
+        <div class="salad-card-img-wrap">
+          <img class="salad-card-img"
+            src="https://images.unsplash.com/photo-1546793665-c74683f339c1?w=500&q=80&fit=crop"
+            alt="Tropical Fruit Bowl" loading="lazy" />
+          <div class="salad-card-badge">🌿 Vegan</div>
+        </div>
+        <div class="salad-card-body">
+          <div class="salad-card-name">Tropical Fruit Bowl</div>
+          <p class="salad-card-desc">Mango, kiwi, strawberries, dragon fruit, blueberries with mint-lime drizzle.</p>
+          <div class="salad-card-footer">
+            <div class="salad-card-price">₹179</div>
+          </div>
+          <button class="btn-add-cart" data-item-name="Tropical Fruit Bowl"
+            onclick="addToCart('Tropical Fruit Bowl', 179, 1, '🍓')">� Add to Cart</button>
+        </div>
+      </div>
+    </div>
+    <div class="text-center" style="margin-top:3rem;">
+      <a href="menu.html" class="btn btn-outline">View Full Menu →</a>
+    </div>
+  </section>
+
+  <!-- COUNTERS -->
+  <div class="counter-section">
+    <div class="counters-grid">
+      <div class="counter-item">
+        <div class="counter-num"><span class="counter-val" data-target="2500">0</span><span
+            class="counter-suffix">+</span></div>
+        <div class="counter-label">Happy Customers</div>
+      </div>
+      <div class="counter-item">
+        <div class="counter-num"><span class="counter-val" data-target="12000">0</span><span
+            class="counter-suffix">+</span></div>
+        <div class="counter-label">Orders Served</div>
+      </div>
+      <div class="counter-item">
+        <div class="counter-num"><span class="counter-val" data-target="25">0</span><span
+            class="counter-suffix">+</span></div>
+        <div class="counter-label">Salad Varieties</div>
+      </div>
+      <div class="counter-item">
+        <div class="counter-num"><span class="counter-val" data-target="30">0</span><span
+            class="counter-suffix">min</span></div>
+        <div class="counter-label">Avg. Delivery Time</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <div class="testimonials-wrap">
+      <div class="text-center reveal">
+        <div class="section-label">Reviews</div>
+        <h2 class="section-title">What Our <span class="text-olive">Customers Say</span></h2>
+      </div>
+      <div class="testimonials-slider">
+        <div class="testimonial-track" id="testimonialTrack">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">"Best salad delivery in the city! The Mediterranean Bowl is absolutely divine.
+              Fresh ingredients, generous portions, and super fast delivery. GreenBowl has completely changed my lunch
+              routine."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">P</div>
+              <div>
+                <div class="testimonial-name">Priya Sharma</div>
+                <div class="testimonial-loc">📍 Koramangala, Bengaluru</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">"I've been ordering from GreenBowl every day for 3 months. The quality never
+              dips. Love that everything is truly natural with no hidden junk. The Caesar Royale is pure magic!"</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">R</div>
+              <div>
+                <div class="testimonial-name">Rahul Mehta</div>
+                <div class="testimonial-loc">📍 Indiranagar, Bengaluru</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">"Ordering on WhatsApp is so seamless! Delivered in 25 minutes and the salad was
+              crisp and beautiful. Love the custom bowl concept — I can make exactly what I want each time."</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">A</div>
+              <div>
+                <div class="testimonial-name">Ananya Reddy</div>
+                <div class="testimonial-loc">📍 HSR Layout, Bengaluru</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">"As a fitness trainer, I recommend GreenBowl to all my clients. The nutrition
+              profile is spot-on and the taste is restaurant quality. My clients are obsessed with the Protein Power
+              Bowl!"</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">V</div>
+              <div>
+                <div class="testimonial-name">Vikram Nair</div>
+                <div class="testimonial-loc">📍 Whitefield, Bengaluru</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★☆</div>
+            <p class="testimonial-text">"Super fresh, super delicious! The packaging is eco-friendly which I appreciate.
+              Would love more spice options, but overall an phenomenal experience. Will definitely keep ordering!"</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">S</div>
+              <div>
+                <div class="testimonial-name">Sneha Patel</div>
+                <div class="testimonial-loc">📍 JP Nagar, Bengaluru</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slider-controls">
+        <button class="slider-btn" id="slidePrev" aria-label="Previous">←</button>
+        <div class="slider-dots" id="sliderDots"></div>
+        <button class="slider-btn" id="slideNext" aria-label="Next">→</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM SECTION -->
+  <section class="insta-section">
+    <div class="text-center reveal">
+      <div class="section-label">Instagram</div>
+      <h2 class="section-title">Follow Our <span class="text-olive">Journey</span></h2>
+      <p class="section-sub">@greenbowl.kitchen • Tag us to be featured!</p>
+    </div>
+    <div class="insta-grid reveal">
+      <div class="insta-item"><img
+          src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&q=75&fit=crop" alt="Salad 1"
+          loading="lazy" />
+        <div class="insta-overlay">📸</div>
+      </div>
+      <div class="insta-item"><img src="https://images.unsplash.com/photo-1546793665-c74683f339c1?w=300&q=75&fit=crop"
+          alt="Salad 2" loading="lazy" />
+        <div class="insta-overlay">📸</div>
+      </div>
+      <div class="insta-item"><img
+          src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=300&q=75&fit=crop" alt="Salad 3"
+          loading="lazy" />
+        <div class="insta-overlay">📸</div>
+      </div>
+      <div class="insta-item"><img
+          src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=300&q=75&fit=crop" alt="Salad 4"
+          loading="lazy" />
+        <div class="insta-overlay">📸</div>
+      </div>
+      <div class="insta-item"><img src="https://images.unsplash.com/photo-1561043433-aaf687c4cf04?w=300&q=75&fit=crop"
+          alt="Salad 5" loading="lazy" />
+        <div class="insta-overlay">📸</div>
+      </div>
+      <div class="insta-item"><img
+          src="https://images.unsplash.com/photo-1607532941433-304659e8198a?w=300&q=75&fit=crop" alt="Salad 6"
+          loading="lazy" />
+        <div class="insta-overlay">📸</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">🥗 GreenBowl</div>
+        <p class="footer-tagline">Fresh, healthy, and handcrafted salads delivered from our cloud kitchen to your door.
+          Nourish your body, one bowl at a time.</p>
+        <div class="footer-social">
+          <div class="footer-social-btn" title="Instagram">📸</div>
+          <div class="footer-social-btn" title="Facebook">👍</div>
+          <div class="footer-social-btn" title="WhatsApp">💬</div>
+          <div class="footer-social-btn" title="YouTube">▶️</div>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About Us</a>
+          <a href="menu.html">Our Menu</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Menu</div>
+        <div class="footer-links">
+          <a href="menu.html#classic">Classic Salads</a>
+          <a href="menu.html#premium">Premium Bowls</a>
+          <a href="menu.html#fruit">Fruit Salads</a>
+          <a href="menu.html#addons">Add-ons</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact Us</div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon">📍</span>
+          <span>123 Green Street, Koramangala 5th Block, Bengaluru - 560095</span>
+        </div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon">📞</span>
+          <span>+91 8300293097</span>
+        </div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon">✉️</span>
+          <span>hello@greenbowl.in</span>
+        </div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon">🕐</span>
+          <span>Mon–Sun: 9:00 AM – 9:00 PM</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2024 GreenBowl Cloud Kitchen. All rights reserved.</div>
+      <div>Made with 💚 for healthy living</div>
+    </div>
+  </footer>
+
+  <!-- CART DRAWER -->
+  <div class="cart-drawer-overlay" id="cartDrawerOverlay"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer-header">
+      <div class="cart-drawer-title">
+        🛒 Your Cart
+        <span class="cart-drawer-count" id="cartDrawerCount">0</span>
+      </div>
+      <button class="cart-drawer-close" onclick="closeCartDrawer()" aria-label="Close cart">✕</button>
+    </div>
+    <div class="cart-drawer-items" id="cartDrawerItems">
+      <div class="cart-empty">
+        <div class="cart-empty-icon">🛒</div>
+        <div class="cart-empty-text">Your cart is empty</div>
+        <div class="cart-empty-sub">Add items from the menu to get started!</div>
+      </div>
+    </div>
+    <div class="cart-drawer-footer" id="cartDrawerFooter" style="display:none;">
+      <div class="cart-summary" id="cartSummary"></div>
+      <button class="cart-wa-btn" id="cartSendWa" disabled>
+        💬 Send Order on WhatsApp
+      </button>
+      <button class="cart-clear-btn" id="cartClearBtn">� Clear Cart</button>
+    </div>
+  </div>
+
+  <style>
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(-8px);
+      }
+    }
+  </style>
+
+  <script src="main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="GreenBowl Menu – Order classic salads, premium bowls, fruit salads, and add-ons. Fresh ingredients, custom quantities, direct WhatsApp ordering." />
+    <title>Menu – GreenBowl Cloud Kitchen</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥗</text></svg>" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        /* MENU PAGE SPECIFIC */
+        .menu-hero {
+            background: linear-gradient(160deg, var(--dark-green) 0%, #122a12 60%, #0d1f0d 100%);
+            padding: 12rem 2rem 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+            animation: fadeInDown 0.8s ease both;
+        }
+
+        .menu-hero-sub {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+            max-width: 550px;
+            margin: 0 auto 2rem;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 0.8s 0.2s ease both;
+        }
+
+        .menu-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 70% 30%, rgba(85, 107, 47, 0.35) 0%, transparent 60%);
+        }
+
+        /* CATEGORY FILTER */
+        .menu-filter {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 2.5rem 2rem;
+            background: white;
+            position: sticky;
+            top: 60px;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .filter-btn {
+            padding: 0.65rem 1.6rem;
+            border-radius: 50px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid rgba(85, 107, 47, 0.2);
+            background: transparent;
+            color: #555;
+            font-family: var(--font-body);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--olive), var(--dark-green));
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 6px 20px var(--olive-glow);
+            transform: translateY(-2px);
+        }
+
+        /* MENU SECTION */
+        .menu-section {
+            padding: 4rem 2rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .menu-section-title {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--dark-green);
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .menu-section-sub {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .menu-divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--olive), var(--mild-green));
+            border-radius: 2px;
+            margin: 0.6rem 0 1.2rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        /* MENU CARD */
+        .menu-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(27, 58, 27, 0.18);
+        }
+
+        .menu-card-img-wrap {
+            overflow: hidden;
+            position: relative;
+            height: 200px;
+        }
+
+        .menu-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .menu-card:hover .menu-card-img {
+            transform: scale(1.1);
+        }
+
+        .menu-card-veg {
+            position: absolute;
+            top: 0.8rem;
+            left: 0.8rem;
+            width: 22px;
+            height: 22px;
+            border-radius: 4px;
+            background: white;
+            border: 2px solid #28a745;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-card-veg::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: #28a745;
+            border-radius: 50%;
+        }
+
+        .menu-card-tag {
+            position: absolute;
+            top: 0.8rem;
+            right: 0.8rem;
+            background: rgba(27, 58, 27, 0.85);
+            color: white;
+            padding: 0.2rem 0.7rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            backdrop-filter: blur(6px);
+        }
+
+        .menu-card-body {
+            padding: 1.2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-card-name {
+            font-weight: 700;
+            color: var(--dark-green);
+            font-size: 1.0rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .menu-card-ingredients {
+            font-size: 0.78rem;
+            color: #999;
+            line-height: 1.5;
+            margin-bottom: auto;
+            padding-bottom: 1rem;
+        }
+
+        .menu-card-footer {
+            border-top: 1px solid rgba(0, 0, 0, 0.06);
+            padding-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .menu-card-price {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--olive);
+            flex-shrink: 0;
+        }
+
+        .qty-control {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            border: 1.5px solid rgba(85, 107, 47, 0.25);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        .qty-btn {
+            width: 28px;
+            height: 28px;
+            background: transparent;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 700;
+            color: var(--olive);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .qty-btn:hover {
+            background: var(--olive);
+            color: white;
+        }
+
+        .qty-val {
+            width: 30px;
+            text-align: center;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--dark-green);
+            border: none;
+            outline: none;
+            font-family: var(--font-body);
+            background: transparent;
+        }
+
+        .menu-card-order-btn {
+            width: 100%;
+            padding: 0.7rem;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 0.8rem;
+            font-family: var(--font-body);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+        }
+
+        .menu-card-order-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        /* HIDDEN CARDS (for category filter) */
+        .menu-card.hidden {
+            display: none;
+        }
+
+        .menu-card.filter-transition {
+            animation: scaleIn 0.4s ease both;
+        }
+
+        /* ADDONS SECTION */
+        .addons-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 1rem;
+            margin-bottom: 4rem;
+        }
+
+        .addon-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.2rem 0.8rem;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            transition: var(--transition);
+            border: 1.5px solid transparent;
+            cursor: pointer;
+        }
+
+        .addon-card:hover {
+            border-color: var(--olive);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--olive-glow);
+        }
+
+        .addon-card-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .addon-card-name {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--dark-green);
+        }
+
+        .addon-card-price {
+            font-size: 0.78rem;
+            color: var(--olive);
+            font-weight: 600;
+            margin-top: 0.2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .menu-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .addons-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .addons-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .menu-filter {
+                top: 56px;
+                padding: 1.5rem 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .addons-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LOADER -->
+    <div id="loader">
+        <div class="loader-inner">
+            <span class="loader-bowl">🥗</span>
+            <div class="loader-text">GreenBowl</div>
+            <div class="loader-bar">
+                <div class="loader-bar-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <a href="https://wa.me/918300293097?text=Hello%20GreenBowl!%20I%20would%20like%20to%20place%20an%20order."
+        class="whatsapp-float" target="_blank">💬</a>
+    <div class="delivery-badge">⚡ 30 Min Delivery</div>
+
+    <!-- MOBILE NAV -->
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="index.html" onclick="closeMobileNav()">Home</a>
+        <a href="about.html" onclick="closeMobileNav()">About</a>
+        <a href="menu.html" onclick="closeMobileNav()">Menu</a>
+        <a href="contact.html" onclick="closeMobileNav()">Contact</a>
+        <a href="menu.html" class="btn btn-primary" onclick="closeMobileNav()">Order Now</a>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="header header-dark" id="header">
+        <nav class="nav">
+            <a href="index.html" class="nav-logo"><span class="nav-logo-icon">🥗</span>GreenBowl</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="menu.html" class="active">Menu</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="menu.html" class="nav-cta">Order Now</a></li>
+            </ul>
+            <button class="cart-nav-btn" onclick="openCartDrawer()" aria-label="Open Cart" title="View Cart">
+                🛒<span class="cart-nav-badge" id="cartNavBadge">0</span>
+            </button>
+            <div class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+                <span></span><span></span><span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MENU HERO -->
+    <section class="menu-hero">
+        <div class="section-label" style="color:var(--mild-green);justify-content:center;margin-bottom:1rem;">Our Menu
+        </div>
+        <h1 class="menu-hero-title">Fresh Bowls for <span style="color:var(--mild-green);">Every Craving</span></h1>
+        <p class="menu-hero-sub">Hand-crafted with seasonal ingredients. WhatsApp us to customize any bowl — your
+            preferences, our expertise.</p>
+        <a href="https://wa.me/918300293097?text=Hello%20GreenBowl!%20I%20would%20like%20to%20customize%20a%20bowl%20order."
+            class="btn btn-whatsapp" style="position:relative;z-index:2;animation:fadeInUp 0.8s 0.4s ease both;"
+            target="_blank">💬 Custom Order via WhatsApp</a>
+    </section>
+
+    <!-- CATEGORY FILTER -->
+    <div class="menu-filter" id="menuFilter">
+        <button class="filter-btn active" data-cat="all" onclick="filterMenu('all', this)">🥗 All Items</button>
+        <button class="filter-btn" data-cat="classic" onclick="filterMenu('classic', this)">🥬 Classic Salads</button>
+        <button class="filter-btn" data-cat="premium" onclick="filterMenu('premium', this)">🏆 Premium Bowls</button>
+        <button class="filter-btn" data-cat="fruit" onclick="filterMenu('fruit', this)">🍓 Fruit Salads</button>
+        <button class="filter-btn" data-cat="addon" onclick="filterMenu('addon', this)">➕ Add-ons</button>
+    </div>
+
+    <!-- MENU CONTENT -->
+    <div id="menuContent">
+
+        <!-- CLASSIC SALADS -->
+        <section class="menu-section" id="classic">
+            <div class="menu-section-title">🥬 Classic Salads</div>
+            <div class="menu-divider"></div>
+            <p class="menu-section-sub">Timeless recipes made fresh, every single time.</p>
+            <div class="menu-grid" id="classicGrid">
+                <!-- Caesar Royale -->
+                <div class="menu-card" data-cat="classic" data-name="Caesar Royale" data-price="199">
+                    <div class="menu-card-img-wrap">
+                        <div class="menu-card-veg"></div>
+                        <img class="menu-card-img"
+                            src="https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=400&q=80&fit=crop"
+                            alt="Caesar Royale" loading="lazy" />
+                        <div class="menu-card-tag">⭐ Popular</div>
+                    </div>
+                    <div class="menu-card-body">
+                        <div class="menu-card-name">Caesar Royale</div>
+                        <div class="menu-card-ingredients">Romaine, parmesan, croutons, Caesar dressing, lemon zest
+                        </div>
+                        <div class="menu-card-footer">
+                            <div class="menu-card-price">₹199</div>
+                            <div class="qty-control">
+                                <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                                <input class="qty-val" value="1" readonly>
+                                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                            </div>
+                        </div>
+                        <button class="btn-add-cart" data-item-name="Caesar Royale"
+                            onclick="addToCart('Caesar Royale', 199, parseInt(this.closest('.menu-card').querySelector('.qty-val').value), '🥬')">🛒
+                            Add to Cart</button>
+                    </div>
+                </div>
+                <!-- Greek Garden -->
+                <div class="menu-card" data-cat="classic" data-name="Greek Garden" data-price="219">
+                    <div class="menu-card-img-wrap">
+                        <div class="menu-card-veg"></div>
+                        <img class="menu-card-img"
+                            src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&q=80&fit=crop"
+                            alt="Greek Garden" loading="lazy" />
+                        <div class="menu-card-tag">🌿 Vegan</div>
+                    </div>
+                    <div class="menu-card-body">
+                        <div class="menu-card-name">Greek Garden</div>
+                        <div class="menu-card-ingredients">Cucumber, olives, tomatoes, feta cheese, red onion, oregano
+                        </div>
+                        <div class="menu-card-footer">
+                            <div class="menu-card-price">₹219</div>
+                            <div class="qty-control">
+                                <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                                <input class="qty-val" value="1" readonly>
+                                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                            </div>
+                        </div>
+                        <button class="btn-add-cart" data-item-name="Greek Garden"
+                            onclick="addToCart('Greek Garden', 219, parseInt(this.closest('.menu-card').querySelector('.qty-val').value), '🥒')">🛒
+                            Add to Cart</button>
+                    </div>
+                </div>
+                <!-- Caprese Delight -->
+                <div class="menu-card" data-cat="classic" data-name="Caprese Delight" data-price="229">
+                    <div class="menu-card-img-wrap">
+                        <div class="menu-card-veg"></div>
+                        <img class="menu-card-img"
+                            src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&q=80&fit=crop"
+                            alt="Caprese Delight" loading="lazy" />
+                    </div>
+                    <div class="menu-card-body">
+                        <div class="menu-card-name">Caprese Delight</div>
+                        <div class="menu-card-ingredients">Mozzarella, tomatoes, fresh basil, balsamic glaze, olive oil
+                        </div>
+                        <div class="menu-card-footer">
+                            <div class="menu-card-price">₹229</div>
+                            <div class="qty-control">
+                                <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                                <input class="qty-val" value="1" readonly>
+                                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                            </div>
+                        </div>
+                        <button class="btn-add-cart" data-item-name="Caprese Delight"
+                            onclick="addToCart('Caprese Delight', 229, parseInt(this.closest('.menu-card').querySelector('.qty-val').value), '🍅')">🛒
+                            Add to Cart</button>
+                    </div>
+                </div>
+                <!-- Asian Crunch -->
+                <div class="menu-card" data-cat="classic" data-name="Asian Crunch" data-price="209">
+                    <div class="menu-card-img-wrap">
+                        <div class="menu-card-veg"></div>
+                        <img class="menu-card-img"
+                            src="https://images.unsplash.com/photo-1547592180-85f173990554?w=400&q=80&fit=crop"
+                            alt="Asian Crunch" loading="lazy" />
+                        <div class="menu-card-tag">🔥 Spicy</div>
+                    </div>
+                    <div class="menu-card-body">
+                        <div class="menu-card-name">Asian Crunch</div>
+                        <div class="menu-card-ingredients">Cabbage, edamame, carrots, sesame, ginger-soy dressing,
+                            peanuts</div>
+                        <div class="menu-card-footer">
+                            <div class="menu-card-price">₹209</div>
+                            <div class="qty-control">
+                                <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                                <input class="qty-val" value="1" readonly>
+                                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                            </div>
+                        </div>
+                        <button class="btn-add-cart" data-item-name="Asian Crunch"
+                            onclick="addToCart('Asian Crunch', 209, parseInt(this.closest('.menu-card').querySelector('.qty-val').value), '🥜')">🛒
+                            Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PREMIUM BOWLS -->
+        <section class="menu-section" id="premium" style="background:var(--soft-gray);max-width:100%;padding:4rem 0;">
+            <div style="max-width:1280px;margin:0 auto;padding:0 2rem;">
+                <div class="menu-section-title">🏆 Premium Bowls</div>
+                <div class="menu-divider"></div>
+                <p class="menu-section-sub">Chef-designed power bowls loaded with protein and superfoods.</p>
+                <div class="menu-grid">
+                    <!-- Mediterranean Bowl -->
+                    <div class="menu-card" data-cat="premium" data-name="Mediterranean Bowl" data-price="249">
+                        <div class="menu-card-img-wrap">
+                            <div class="menu-card-veg"></div>
+                            <img class="menu-card-img"
+                                src="https://images.unsplash.com/photo-1551248429-40975aa4de74?w=400&q=80&fit=crop"
+                                alt="Mediterranean Bowl" loading="lazy" />
+                            <div class="menu-card-tag">🔥 Bestseller</div>
+                        </div>
+                        <div class="menu-card-body">
+                            <div class="menu-card-name">Mediterranean Bowl</div>
+                            <div class="menu-card-ingredients">Quinoa, hummus, feta, roasted veg, olives, pomegranate,
+                                tahini</div>
+                            <div class="menu-card-footer">
+                                <div class="menu-card-price">₹249</div>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                                    <input class="qty-val" value="1" readonly>
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
+                            <button class="btn-add-cart" data-item-name="Mediterranean Bowl"
+                                onclick="addToCart('Mediterranean Bowl', 249, parseInt(this.closest('.menu-card').querySelector('.qty-val').value), '🥗')">🛒
+                                Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- Protein Power Bowl -->
+                    <div class="menu-card" data-cat="premium" data-name="Protein Power Bowl" data-price="279">
+                        <div class="menu-card-img-wrap">
+                            <div class="menu-card-veg"></div>
+                            <img class="menu-card-img"
+                                src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=400&q=80&fit=crop"
+                                alt="Protein Power Bowl" loading="lazy" />
+                            <div class="menu-card-tag">💪 High Protein</div>
+                        </div>
+                        <div class="menu-card-body">
+                            <div class="menu-card-name">Protein Power Bowl</div>
+                            <div class="menu-card-ingredients">Grilled paneer, chickpeas, quinoa, chia, spinach, hemp
+                                seeds</div>
+                            <div class="menu-card-footer">
+                                <div class="menu-card-price">₹279</div>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                                    <input class="qty-val" value="1" readonly>
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
+                            <button class="btn-add-cart" data-item-name="Protein Power Bowl"
+                                onclick="addToCart('Protein Power Bowl', 279, parseInt(this.closest('.menu-card').querySelector('.qty-val').value), '💪')">🛒
+                                Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- Avocado Goddess -->
+                    <div class="menu-card" data-cat="premium" data-name="Avocado Goddess Bowl" data-price="299">
+                        <div class="menu-card-img-wrap">
+                            <div class="menu-card-veg"></div>
+                            <img class="menu-card-img"
+                                src="https://images.unsplash.com/photo-1546173159-315724a31696?w=400&q=80&fit=crop"
+                                alt="Avocado Goddess Bowl" loading="lazy" />
+                            <div class="menu-card-tag">🥑 Premium</div>
+                        </div>
+                        <div class="menu-card-body">
+                            <div class="menu-card-name">Avocado Goddess Bowl</div>
+                            <div class="menu-card-ingredients">Avocado, brown rice, kale, edamame, miso-ginger dressing,
+                                sesame</div>
+                            <div class="menu-card-footer">
+                                <div class="menu-card-price">₹299</div>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                                    <input class="qty-val" value="1" readonly>
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
+                            <button class="btn-add-cart" data-item-name="Avocado Goddess Bowl"
+                                onclick="addToCart('Avocado Goddess Bowl', 299, parseInt(this.closest('.menu-card').querySelector('.qty-val').value), '🥑')">🛒
+                                Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- Rainbow Bowl -->
+                    <div class="menu-card" data-cat="premium" data-name="Rainbow Harvest Bowl" data-price="259">
+                        <div class="menu-card-img-wrap">
+                            <div class="menu-card-veg"></div>
+                            <img class="menu-card-img"
+                                src="https://images.unsplash.com/photo-1561043433-aaf687c4cf04?w=400&q=80&fit=crop"
+                                alt="Rainbow Harvest Bowl" loading="lazy" />
+                            <div class="menu-card-tag">🌈 Colourful</div>
+                        </div>
+                        <div class="menu-card-body">
+                            <div class="menu-card-name">Rainbow Harvest Bowl</div>
+                            <div class="menu-card-ingredients">7 coloured vegetables, purple cabbage, beet, carrot,
+                                yellow pepper</div>
+                            <div class="menu-card-footer">
+                                <div class="menu-card-price">₹259</div>
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                                    <input class="qty-val" value="1" readonly>
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                            </div>
+                            <button class="btn-add-cart" data-item-name="Rainbow Harvest Bowl"
+                                onclick="addToCart('Rainbow Harvest Bowl', 259, parseInt(this.closest('.menu-card').querySelector('.qty-val').value), '🌈')">🛒
+                                Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FRUIT SALADS -->
+        <section class="menu-section" id="fruit">
+            <div class="menu-section-title">🍓 Fruit Salads</div>
+            <div class="menu-divider"></div>
+            <p class="menu-section-sub">Seasonal fruits, natural sweetness, zero guilt.</p>
+            <div class="menu-grid">
+                <!-- Tropical Paradise -->
+                <div class="menu-card" data-cat="fruit" data-name="Tropical Paradise" data-price="179">
+                    <div class="menu-card-img-wrap">
+                        <div class="menu-card-veg"></div>
+                        <img class="menu-card-img"
+                            src="https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400&q=80&fit=crop"
+                            alt="Tropical Paradise" loading="lazy" />
+                        <div class="menu-card-tag">🌴 Tropical</div>
+                    </div>
+                    <div class="menu-card-body">
+                        <div class="menu-card-name">Tropical Paradise</div>
+                        <div class="menu-card-ingredients">Mango, pineapple, papaya, coconut flakes, lime zest, mint
+                        </div>
+                        <div class="menu-card-footer">
+                            <div class="menu-card-price">₹179</div>
+                            <div class="qty-control">
+                                <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                                <input class="qty-val" value="1" readonly>
+                                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                            </div>
+                        </div>
+                        <button class="btn-add-cart" data-item-name="Tropical Paradise"
+                            onclick="addToCart('Tropical Paradise', 179, parseInt(this.closest('.menu-card').querySelector('.qty-val').value), '🌴')">🛒
+                            Add to Cart</button>
+                    </div>
+                </div>
+                <!-- Berry Blast -->
+                <div class="menu-card" data-cat="fruit" data-name="Berry Blast" data-price="199">
+                    <div class="menu-card-img-wrap">
+                        <div class="menu-card-veg"></div>
+                        <img class="menu-card-img"
+                            src="https://images.unsplash.com/photo-1607532941433-304659e8198a?w=400&q=80&fit=crop"
+                            alt="Berry Blast" loading="lazy" />
+                        <div class="menu-card-tag">💜 Antioxidant</div>
+                    </div>
+                    <div class="menu-card-body">
+                        <div class="menu-card-name">Berry Blast</div>
+                        <div class="menu-card-ingredients">Strawberries, blueberries, raspberries, blackberries, acai
+                            drizzle</div>
+                        <div class="menu-card-footer">
+                            <div class="menu-card-price">₹199</div>
+                            <div class="qty-control">
+                                <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                                <input class="qty-val" value="1" readonly>
+                                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                            </div>
+                        </div>
+                        <button class="btn-add-cart" data-item-name="Berry Blast"
+                            onclick="addToCart('Berry Blast', 199, parseInt(this.closest('.menu-card').querySelector('.qty-val').value), '🫐')">🛒
+                            Add to Cart</button>
+                    </div>
+                </div>
+                <!-- Citrus Sunrise -->
+                <div class="menu-card" data-cat="fruit" data-name="Citrus Sunrise" data-price="169">
+                    <div class="menu-card-img-wrap">
+                        <div class="menu-card-veg"></div>
+                        <img class="menu-card-img"
+                            src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=400&q=80&fit=crop"
+                            alt="Citrus Sunrise" loading="lazy" />
+                        <div class="menu-card-tag">☀️ Vitamin C</div>
+                    </div>
+                    <div class="menu-card-body">
+                        <div class="menu-card-name">Citrus Sunrise</div>
+                        <div class="menu-card-ingredients">Blood orange, grapefruit, mandarin, kiwi, honey, fresh ginger
+                        </div>
+                        <div class="menu-card-footer">
+                            <div class="menu-card-price">₹169</div>
+                            <div class="qty-control">
+                                <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                                <input class="qty-val" value="1" readonly>
+                                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                            </div>
+                        </div>
+                        <button class="btn-add-cart" data-item-name="Citrus Sunrise"
+                            onclick="addToCart('Citrus Sunrise', 169, parseInt(this.closest('.menu-card').querySelector('.qty-val').value), '🍊')">🛒
+                            Add to Cart</button>
+                    </div>
+                </div>
+                <!-- Watermelon Mint -->
+                <div class="menu-card" data-cat="fruit" data-name="Watermelon Mint Cooler" data-price="149">
+                    <div class="menu-card-img-wrap">
+                        <div class="menu-card-veg"></div>
+                        <img class="menu-card-img"
+                            src="https://images.unsplash.com/photo-1473093226795-af9932fe5856?w=400&q=80&fit=crop"
+                            alt="Watermelon Mint Cooler" loading="lazy" />
+                        <div class="menu-card-tag">🍉 Seasonal</div>
+                    </div>
+                    <div class="menu-card-body">
+                        <div class="menu-card-name">Watermelon Mint Cooler</div>
+                        <div class="menu-card-ingredients">Watermelon, cucumber, fresh mint, feta crumble, lime juice
+                        </div>
+                        <div class="menu-card-footer">
+                            <div class="menu-card-price">₹149</div>
+                            <div class="qty-control">
+                                <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                                <input class="qty-val" value="1" readonly>
+                                <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                            </div>
+                        </div>
+                        <button class="btn-add-cart" data-item-name="Watermelon Mint Cooler"
+                            onclick="addToCart('Watermelon Mint Cooler', 149, parseInt(this.closest('.menu-card').querySelector('.qty-val').value), '🍉')">🛒
+                            Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ADD-ONS -->
+        <section class="menu-section" id="addons" style="background:var(--soft-gray);max-width:100%;padding:4rem 0;">
+            <div style="max-width:1280px;margin:0 auto;padding:0 2rem;">
+                <div class="menu-section-title">➕ Add-ons</div>
+                <div class="menu-divider"></div>
+                <p class="menu-section-sub">Boost your bowl with premium extras. Click to add to your cart.</p>
+                <div class="addons-grid">
+                    <div class="addon-card" data-cat="addon" onclick="addToCart('Extra Avocado', 49, 1, '🥑')">
+                        <div class="addon-card-icon">🥑</div>
+                        <div class="addon-card-name">Extra Avocado</div>
+                        <div class="addon-card-price">+₹49</div>
+                    </div>
+                    <div class="addon-card" data-cat="addon" onclick="addToCart('Grilled Paneer', 59, 1, '🧀')">
+                        <div class="addon-card-icon">🧀</div>
+                        <div class="addon-card-name">Grilled Paneer</div>
+                        <div class="addon-card-price">+₹59</div>
+                    </div>
+                    <div class="addon-card" data-cat="addon" onclick="addToCart('Boiled Eggs x2', 39, 1, '🥚')">
+                        <div class="addon-card-icon">🥚</div>
+                        <div class="addon-card-name">Boiled Eggs x2</div>
+                        <div class="addon-card-price">+₹39</div>
+                    </div>
+                    <div class="addon-card" data-cat="addon" onclick="addToCart('Nuts &amp; Seeds Mix', 35, 1, '🌰')">
+                        <div class="addon-card-icon">🌰</div>
+                        <div class="addon-card-name">Nuts &amp; Seeds Mix</div>
+                        <div class="addon-card-price">+₹35</div>
+                    </div>
+                    <div class="addon-card" data-cat="addon" onclick="addToCart('Extra Dressing', 25, 1, '🥣')">
+                        <div class="addon-card-icon">🥣</div>
+                        <div class="addon-card-name">Extra Dressing</div>
+                        <div class="addon-card-price">+₹25</div>
+                    </div>
+                    <div class="addon-card" data-cat="addon" onclick="addToCart('Croutons', 20, 1, '🍞')">
+                        <div class="addon-card-icon">🍞</div>
+                        <div class="addon-card-name">Croutons</div>
+                        <div class="addon-card-price">+₹20</div>
+                    </div>
+                    <div class="addon-card" data-cat="addon" onclick="addToCart('Extra Quinoa', 45, 1, '🌾')">
+                        <div class="addon-card-icon">🌾</div>
+                        <div class="addon-card-name">Extra Quinoa</div>
+                        <div class="addon-card-price">+₹45</div>
+                    </div>
+                    <div class="addon-card" data-cat="addon" onclick="addToCart('Hummus Side', 55, 1, '🫙')">
+                        <div class="addon-card-icon">🫙</div>
+                        <div class="addon-card-name">Hummus Side</div>
+                        <div class="addon-card-price">+₹55</div>
+                    </div>
+                    <div class="addon-card" data-cat="addon" onclick="addToCart('Feta Cheese', 45, 1, '🧀')">
+                        <div class="addon-card-icon">🧀</div>
+                        <div class="addon-card-name">Feta Cheese</div>
+                        <div class="addon-card-price">+₹45</div>
+                    </div>
+                    <div class="addon-card" data-cat="addon" onclick="addToCart('Beetroot Chips', 30, 1, '🫚')">
+                        <div class="addon-card-icon">🫚</div>
+                        <div class="addon-card-name">Beetroot Chips</div>
+                        <div class="addon-card-price">+₹30</div>
+                    </div>
+                    <div class="addon-card" data-cat="addon" onclick="addToCart('Lemon-Herb Water', 29, 1, '💧')">
+                        <div class="addon-card-icon">💧</div>
+                        <div class="addon-card-name">Lemon-Herb Water</div>
+                        <div class="addon-card-price">+₹29</div>
+                    </div>
+                    <div class="addon-card" data-cat="addon" onclick="addToCart('Eco Combo Pack', 15, 1, '♻️')">
+                        <div class="addon-card-icon">♻️</div>
+                        <div class="addon-card-name">Eco Combo Pack</div>
+                        <div class="addon-card-price">+₹15</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div><!-- /menuContent -->
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">🥗 GreenBowl</div>
+                <p class="footer-tagline">Fresh, healthy, and handcrafted salads delivered from our cloud kitchen to
+                    your door.</p>
+                <div class="footer-social">
+                    <div class="footer-social-btn">📸</div>
+                    <div class="footer-social-btn">👍</div>
+                    <div class="footer-social-btn">💬</div>
+                    <div class="footer-social-btn">▶️</div>
+                </div>
+            </div>
+            <div>
+                <div class="footer-col-title">Quick Links</div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="menu.html">Our Menu</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
+            <div>
+                <div class="footer-col-title">Categories</div>
+                <div class="footer-links">
+                    <a href="#classic">Classic Salads</a>
+                    <a href="#premium">Premium Bowls</a>
+                    <a href="#fruit">Fruit Salads</a>
+                    <a href="#addons">Add-ons</a>
+                </div>
+            </div>
+            <div>
+                <div class="footer-col-title">Contact Us</div>
+                <div class="footer-contact-item"><span class="footer-contact-icon">📍</span><span>123 Green Street,
+                        Koramangala, Bengaluru</span></div>
+                <div class="footer-contact-item"><span class="footer-contact-icon">📞</span><span>+91 8300293097</span>
+                </div>
+                <div class="footer-contact-item"><span class="footer-contact-icon">🕐</span><span>Mon–Sun: 9:00 AM –
+                        9:00 PM</span></div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>© 2024 GreenBowl Cloud Kitchen. All rights reserved.</div>
+            <div>Made with 💚 for healthy living</div>
+        </div>
+    </footer>
+
+    <!-- CART DRAWER -->
+    <div class="cart-drawer-overlay" id="cartDrawerOverlay"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-drawer-header">
+            <div class="cart-drawer-title">
+                🛒 Your Cart
+                <span class="cart-drawer-count" id="cartDrawerCount">0</span>
+            </div>
+            <button class="cart-drawer-close" onclick="closeCartDrawer()" aria-label="Close cart">✕</button>
+        </div>
+        <div class="cart-drawer-items" id="cartDrawerItems">
+            <div class="cart-empty">
+                <div class="cart-empty-icon">🛒</div>
+                <div class="cart-empty-text">Your cart is empty</div>
+                <div class="cart-empty-sub">Add items from the menu above!</div>
+            </div>
+        </div>
+        <div class="cart-drawer-footer" id="cartDrawerFooter" style="display:none;">
+            <div class="cart-summary" id="cartSummary"></div>
+            <button class="cart-wa-btn" id="cartSendWa" disabled>
+                💬 Send Order on WhatsApp
+            </button>
+            <button class="cart-clear-btn" id="cartClearBtn">🗑 Clear Cart</button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        // Menu filter animation
+        function filterMenu(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            if (cat === 'all') {
+                document.querySelectorAll('.menu-card, .addon-card').forEach(card => {
+                    card.classList.remove('hidden');
+                    card.classList.add('filter-transition');
+                    setTimeout(() => card.classList.remove('filter-transition'), 400);
+                });
+                return;
+            }
+            document.querySelectorAll('[data-cat]').forEach(card => {
+                if (card.getAttribute('data-cat') === cat) {
+                    card.classList.remove('hidden');
+                    card.classList.add('filter-transition');
+                    setTimeout(() => card.classList.remove('filter-transition'), 400);
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+            const target = document.getElementById(cat === 'addon' ? 'addons' : cat);
+            if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+        }
+    </script>
+</body>
+
+</html>
