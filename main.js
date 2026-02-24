@@ -27,7 +27,11 @@ function getCartCount() {
    Called from inline onclick="addToCart(...)" on each card
    ============================================================ */
 function addToCart(name, price, qty, emoji) {
-  qty = parseInt(qty) || 1;
+  qty = parseInt(qty);
+  if (!qty || qty < 1) {
+    alert('Please increase the quantity to at least 1 before adding to cart! 🥗');
+    return;
+  }
   const existing = cart.find(i => i.name === name);
   if (existing) {
     existing.qty = Math.min(existing.qty + qty, 20);
@@ -370,7 +374,7 @@ function changeQty(btn, delta) {
   const input = control.querySelector('.qty-val');
   if (!input) return;
   let val = parseInt(input.value) + delta;
-  input.value = Math.max(1, Math.min(val, 20));
+  input.value = Math.max(0, Math.min(val, 20));
 }
 
 /* ========================================
