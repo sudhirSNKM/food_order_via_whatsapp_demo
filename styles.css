@@ -679,19 +679,7 @@ button {
     position: relative;
     width: 420px;
     height: 420px;
-    animation: floatBowl 5s ease-in-out infinite;
-}
-
-@keyframes floatBowl {
-
-    0%,
-    100% {
-        transform: translateY(0) rotate(-1deg);
-    }
-
-    50% {
-        transform: translateY(-18px) rotate(1deg);
-    }
+    overflow: visible;
 }
 
 .hero-bowl-img {
@@ -700,6 +688,17 @@ button {
     object-fit: cover;
     border-radius: 50%;
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 0 3px rgba(143, 188, 143, 0.3), 0 0 60px rgba(85, 107, 47, 0.4);
+    animation: spinCW 18s linear infinite;
+}
+
+@keyframes spinCW {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .hero-bowl-ring {
@@ -728,89 +727,100 @@ button {
     }
 }
 
-/* Floating ingredients */
-.float-ingredient {
+/* ===== ORBITING INGREDIENTS ===== */
+/* Each .orbit-arm is an invisible arm that rotates counter-clockwise around the bowl center.
+   The .float-ingredient inside counter-rotates clockwise so the emoji stays upright. */
+.orbit-arm {
     position: absolute;
-    font-size: 2.2rem;
-    animation: floatIngredient var(--dur, 4s) var(--delay, 0s) ease-in-out infinite;
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+    /* center the arm on the bowl */
+    top: 50%;
+    left: 50%;
+    width: var(--radius, 280px);
+    height: 0;
+    transform-origin: 0 0;
+    animation: orbitCCW var(--orb-dur, 12s) var(--orb-delay, 0s) linear infinite;
     pointer-events: none;
 }
 
-@keyframes floatIngredient {
+.float-ingredient {
+    position: absolute;
+    /* place at the end of the arm */
+    left: 100%;
+    top: 0;
+    transform: translateY(-50%);
+    font-size: 2.2rem;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
+    /* counter-rotate so emoji stays upright */
+    animation: counterCCW var(--orb-dur, 12s) var(--orb-delay, 0s) linear infinite;
+}
 
-    0%,
-    100% {
-        transform: translateY(0) rotate(var(--rot-s, -10deg)) scale(1);
-        opacity: 0.9;
+@keyframes orbitCCW {
+    from {
+        transform: rotate(0deg);
     }
 
-    50% {
-        transform: translateY(var(--ty, -15px)) rotate(var(--rot-e, 10deg)) scale(1.1);
-        opacity: 1;
+    to {
+        transform: rotate(-360deg);
     }
 }
 
-.fi-1 {
-    top: 5%;
-    left: 10%;
-    --dur: 4.5s;
-    --delay: 0s;
-    --ty: -18px;
-    --rot-s: -15deg;
-    --rot-e: 15deg;
+@keyframes counterCCW {
+    from {
+        transform: translateY(-50%) rotate(0deg);
+    }
+
+    to {
+        transform: translateY(-50%) rotate(360deg);
+    }
 }
 
-.fi-2 {
-    top: 20%;
-    right: 5%;
-    --dur: 3.8s;
-    --delay: 0.5s;
-    --ty: -12px;
-    --rot-s: 5deg;
-    --rot-e: -8deg;
+/* Individual arms:
+   All share a 12s orbit duration.
+   Negative delays distribute them evenly: -2s apart = 60° spacing (12s ÷ 6 = 2s per slot).
+   Varying radii add a natural, organic feel. */
+.oa-1 {
+    --radius: 265px;
+    --orb-dur: 12s;
+    --orb-delay: 0s;
 }
 
-.fi-3 {
-    bottom: 25%;
-    left: 5%;
-    --dur: 5s;
-    --delay: 1s;
-    --ty: -20px;
-    --rot-s: 10deg;
-    --rot-e: -15deg;
+.oa-2 {
+    --radius: 285px;
+    --orb-dur: 12s;
+    --orb-delay: -2s;
 }
 
-.fi-4 {
-    bottom: 10%;
-    right: 12%;
-    --dur: 4.2s;
-    --delay: 0.3s;
-    --ty: -15px;
-    --rot-s: -8deg;
-    --rot-e: 12deg;
+.oa-3 {
+    --radius: 255px;
+    --orb-dur: 12s;
+    --orb-delay: -4s;
 }
 
-.fi-5 {
-    top: 55%;
-    right: -2%;
-    --dur: 3.5s;
-    --delay: 1.5s;
-    --ty: -10px;
-    --rot-s: 15deg;
-    --rot-e: -10deg;
-    font-size: 1.6rem;
+.oa-4 {
+    --radius: 275px;
+    --orb-dur: 12s;
+    --orb-delay: -6s;
 }
 
-.fi-6 {
-    top: 70%;
-    left: 0%;
-    --dur: 4.8s;
-    --delay: 0.7s;
-    --ty: -22px;
-    --rot-s: -12deg;
-    --rot-e: 8deg;
-    font-size: 1.8rem;
+.oa-5 {
+    --radius: 260px;
+    --orb-dur: 12s;
+    --orb-delay: -8s;
+}
+
+.oa-6 {
+    --radius: 280px;
+    --orb-dur: 12s;
+    --orb-delay: -10s;
+}
+
+/* Size tweaks for variety */
+.oa-5 .float-ingredient {
+    font-size: 1.7rem;
+}
+
+.oa-6 .float-ingredient {
+    font-size: 1.9rem;
 }
 
 /* ===== MARQUEE STRIP ===== */
